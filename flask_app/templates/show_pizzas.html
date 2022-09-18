@@ -22,24 +22,15 @@
             <div class="card col-8 mt-5" >
                 <div class="card-body">
                     <p  class="card-text">Pizza Name: {{pizza.pizza_name}}</p>
+                    <p  class="card-text">Toppings:
+                        {% for pizza in pizzas %}
+                            {{pizza.topping_name}}
+                        {% endfor %} 
+                    </p> 
                     <p  class="card-text">Created By: {{owner.first_name}} {{owner.last_name}}</p>
                     <a href="/delete/{{pizza.id}}">Delete</a>
                 </div>
             </div>
-            <!--Delete Below -->
-            <table class="table table-hover table-responsive"></table>
-                <tbody>
-                    {% for pizza in pizzas %}
-                    <tr>
-                        <td>
-                            <a href="/pizza/{{pizza.id}}">{{pizza.pizza_name}}</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </div>
-                </tbody>
-            </table>
-            <!--Delete Above -->
         </div>
     </div>
 </body>

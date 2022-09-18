@@ -34,7 +34,7 @@ def pizzas(id):
     owner_data ={
         'id' : user_id
     }
-    return render_template('/show_pizzas.html', pizza = Pizza.get_by_id(data),owner = User.get_by_id(owner_data), pizzas = Pizza.get_all())
+    return render_template('/show_pizzas.html', pizza = Pizza.get_by_id(data),owner = User.get_by_id(owner_data), pizzas = Pizza.get_pizza_toppings(data))
 
 @app.route('/delete/<int:id>')
 def delete_pizza(id):
