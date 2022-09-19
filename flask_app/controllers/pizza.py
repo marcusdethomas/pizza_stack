@@ -7,7 +7,7 @@ from flask_app.models.pizza_has_topping import Pizza_has_toppings
 
 @app.route('/pizza')
 def add_pizza():
-    return render_template('/new_pizza.html', topping = Topping.get_all(), has_topping=Pizza_has_toppings.get_all())
+    return render_template('/new_pizza.html', toppings = Topping.get_all(), has_topping=Pizza_has_toppings.get_full_pie())
 
 @app.route('/new_pizza', methods = ['POST'])
 def add_new_pizza(): 
@@ -28,7 +28,7 @@ def add_new_pizza():
     "topping_id": topping_list
     }
     Pizza_has_toppings.save(all_data, pizza_id, topping_list) 
-    #print("Pizza has topping: " , all_data) # testing third table save
+    print("Pizza has topping: " , all_data) # testing third table save
     return redirect('/dashboard')
 
 @app.route('/pizza/<int:id>')

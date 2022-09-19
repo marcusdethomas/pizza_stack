@@ -43,6 +43,14 @@ class Pizza_has_toppings:
         return results
 
     @classmethod
+    def get_full_pie(cls):
+        query = "SELECT * FROM pizza inner join pizza_has_topping on pizza.id = pizza_has_topping.pizza_id inner join topping on topping.id = topping_id "
+        results =  connectToMySQL(cls.my_db).query_db(query)
+        pizza_has_topping = []
+        for row in results:
+            pizza_has_topping.append(cls(row))
+        return results
+    @classmethod
     def update(cls, data):
         print(data)
         query = "UPDATE pizza_has_topping SET topping_name=%(topping_name)s, date=%(date)s, updated_at=NOW() WHERE id = %(id)s;" #fix

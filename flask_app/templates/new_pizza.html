@@ -22,16 +22,19 @@
             <div class="row justify-content-center">
                 <div class="card col-8 mt-5" >
                     <div class="card-body">
+                    
                         <p  class="card-text">
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="Pizza Name" aria-label="Pizza Name" name="pizza_name">
                             </div>
                         </p> 
                         <p  class="card-text">
-                            <div class="input-group mb-3">
-                                <input type="number" class="form-control" placeholder="Topping Id" 
-                                aria-label="Topping Id" name="topping_id" value="2">
-                            </div>
+                            {% for topping in toppings %}
+                            <input type="checkbox" name="topping_id" value="{{topping.id}}" id="topping_id">
+                            <label for="topping_id">{{topping.topping_name}}</label>
+                            <br/>  
+                            {% endfor %}
+                            <!--
                             <div class="input-group mb-3">
                                 <input type="number" class="form-control" placeholder="Topping Id" 
                                 aria-label="Topping Id" name="topping_id" value="3">
@@ -40,24 +43,11 @@
                                 <input type="number" class="form-control" placeholder="Topping Id" 
                                 aria-label="Topping Id" name="topping_id" value="4">
                             </div>
+                            -->
                         </p>
-                        <!--
-                            {% for topping in topping %}
-                            <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btncheck1">{{topping.topping_name}}</label>
-                            {% endfor %}
-                            
-                        <select class="form-select" multiple aria-label="multiple select example">
-                            {% for topping in topping %}
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder= "{{topping.name}}" aria-label="Pizza Name" name="topping_id">
-                            </div>
-                            {% endfor %}
-                        </select>
-                        -->
-
-
                     
+                    
+
                         <div class="d-flex justify-content-center p-2 bd-highlight">
                             <input type ="submit" name="Create Pizza"class="btn btn-primary">
                         </div>
