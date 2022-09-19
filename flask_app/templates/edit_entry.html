@@ -9,7 +9,7 @@
     <title>Edit Sasquatch</title>
 </head>
 <body>
-<form action="/update", method="POST">
+<form action="/topping/update", method="POST">
     <div class="container">
         <div class="row">
             <div class=" d-flex justify-content-end">
@@ -23,27 +23,10 @@
             <div class="card col-8 mt-5" >
                 <div class="card-body">
                     <p class="card-title">
-                        <input type="hidden" name="id" value={{sasquatches.id}}>
-                        <p  class="card-text">
-                            <div class="input-group mb-3">
-                                <input type="textarea" class="form-control" placeholder="Location" aria-label="Location" name="location" value="{{sasquatches.location}}">
-                            </div>
-                        </p>
-                        <p  class="card-text">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Description" aria-label="Description" name="description" value="{{sasquatches.description}}">
-                            </div>
-                        </p>
-                        <p  class="card-text">
-                            <div class="input-group mb-3">
-                                <input type="number" min="1" class="form-control" placeholder="Number of Sasquatches Seen" aria-label="Number of Sasquatches Seen" name="number_of_sasquatches" value="{{sasquatches.number_of_sasquatches}}">
-                            </div>
-                        </p>
-                        <p  class="card-text">
-                            <div class="input-group mb-3">
-                            <input type="date" class="form-control" placeholder="Date of Sighting" aria-label="Date of Sighting" name="date" value="{{sasquatches.date.strftime('%Y-%m-%d')}}">
-                            </div>
-                        </p>
+                        <input type="hidden" name="id" value={{toppings.id}}>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" value="{{toppings.topping_name}}" aria-label="Topping Name" name="topping_name">
+                        </div>
                     <div class="d-flex justify-content-center p-2 bd-highlight">
                         <input type ="submit" value="Update" name="Edit entry"class="btn btn-primary">
                     </div>

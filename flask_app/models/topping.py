@@ -37,8 +37,7 @@ class Topping:
 
     @classmethod
     def update(cls, data):
-        print(data)
-        query = "UPDATE topping SET topping_name=%(topping_name)s, date=%(date)s, updated_at=NOW() WHERE id = %(id)s;"
+        query = "UPDATE topping SET topping_name=%(topping_name)s, updated_at=NOW() WHERE id = %(id)s;"
         return connectToMySQL(cls.my_db).query_db(query,data)
     
     @classmethod

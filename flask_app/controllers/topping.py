@@ -22,7 +22,7 @@ def add_new():
     return redirect('/dashboard')
 
 @app.route('/topping/<int:id>')
-def shows(id):
+def show_topping(id):
     if 'user_id' not in session:
         redirect ('/logout')
     data = {
@@ -35,6 +35,38 @@ def shows(id):
     }
     return render_template('/show_toppings.html', topping = Topping.get_by_id(data),owner = User.get_by_id(owner_data))
 
+@app.route('/topping/edit/<int:id>')
+def edit_topping(id):
+    if 'user_id' not in session:
+        redirect ('/logout')
+    data = {
+        'id':id,
+    }
+    user_data = {
+        "id":session['user_id']
+    }
+    return render_template('edit_entry.html', toppings = Topping.get_by_id(data), user = User.get_by_id(user_data))
+
+@app.route('/topping/update', methods =['POST'])
+def update_topping():
+    if 'user_id' not in session:
+        return redirect ('/logout')
+    if not Topping.validate_entry(request.form):
+        edit = {
+            "id": request.form['id'],
+            "topping_name":request.form['topping_name']
+        }
+        Topping.update(edit)
+        return redirect('/show_all')
+    data = {
+    "topping_name": request.form["topping_name"],
+    "id": request.form['id']
+    }
+    print("Edit topping data: ", data)
+    Topping.update(data)
+    return redirect('/show_all')
+
+
 @app.route('/show_all')
 def show_all():
     if 'user_id' not in session:
@@ -43,7 +75,6 @@ def show_all():
         'id': session['user_id']
     }
     toppings = Topping.get_all()
-    print(toppings)
     return render_template('/all_toppings.html', user = User.get_by_id(data), topping = Topping.get_all())
 
 

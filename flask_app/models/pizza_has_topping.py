@@ -30,7 +30,7 @@ class Pizza_has_toppings:
             }
             query = "INSERT INTO pizza_has_topping (pizza_id, topping_id) VALUES  (%(pizza_id)s, %(topping_id)s);"    
             results = connectToMySQL(cls.my_db).query_db(query,data)
-            print("Save toppings list: ", data) 
+            #print("Save toppings list: ", data) 
         return 
 
     @classmethod
