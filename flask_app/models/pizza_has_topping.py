@@ -20,7 +20,7 @@ class Pizza_has_toppings:
 
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO pizza_has_topping (pizza_id, topping_id) VALUES  (%(pizza_id)s, (%(topping_id)s);"
+        query = "INSERT INTO pizza_has_topping (pizza_id, topping_id) VALUES  (%(pizza_id)s, 2);"
         return connectToMySQL(cls.my_db).query_db(query, data)
 
     @classmethod

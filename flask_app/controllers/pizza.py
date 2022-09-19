@@ -20,11 +20,15 @@ def add_new_pizza():
     "pizza_name": request.form["pizza_name"],
     "user_id": session['user_id']
     }
+    Pizza.save(data)
+    new_pizza = Pizza.get_by_name(data)
+    pizza_id = new_pizza.id
     all_data = {
+    "pizza_id": pizza_id,
     "topping_id": request.form["topping_id"],
     }
-    Pizza.save(data)
-    #Pizza_has_toppings.save(all_data)
+    Pizza_has_toppings.save(all_data) 
+    print("Pizza has topping: " , all_data) # testing third table save
     return redirect('/dashboard')
 
 @app.route('/pizza/<int:id>')
