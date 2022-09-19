@@ -1,4 +1,3 @@
-from xml.etree.ElementTree import PI
 from flask_app import app
 from flask import render_template, redirect, request, flash, session
 from flask_app.models.pizza import Pizza
@@ -23,12 +22,13 @@ def add_new_pizza():
     Pizza.save(data)
     new_pizza = Pizza.get_by_name(data)
     pizza_id = new_pizza.id
+    topping_list = request.form.getlist("topping_id")
     all_data = {
     "pizza_id": pizza_id,
-    "topping_id": request.form["topping_id"],
+    "topping_id": topping_list
     }
-    Pizza_has_toppings.save(all_data) 
-    print("Pizza has topping: " , all_data) # testing third table save
+    Pizza_has_toppings.save(all_data, topping_list) 
+    #print("Pizza has topping: " , all_data) # testing third table save
     return redirect('/dashboard')
 
 @app.route('/pizza/<int:id>')

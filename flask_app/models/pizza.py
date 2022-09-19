@@ -27,7 +27,6 @@ class Pizza:
         results = connectToMySQL(cls.my_db).query_db(query,data)
         return cls(results[0])
 
-
     @classmethod
     def save(cls, data):
         query = "INSERT INTO pizza (pizza_name, user_id) VALUES  (%(pizza_name)s, %(user_id)s);"

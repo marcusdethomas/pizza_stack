@@ -19,8 +19,11 @@ class Pizza_has_toppings:
         return cls(results[0])
 
     @classmethod
-    def save(cls, data):
-        query = "INSERT INTO pizza_has_topping (pizza_id, topping_id) VALUES  (%(pizza_id)s, 2);"
+    def save(cls, data, topping_list):
+        #print("Full pizza: ",data)
+        print("Save toppings list: ", topping_list)
+        for topping in topping_list:
+            query = "INSERT INTO pizza_has_topping (pizza_id, topping_id) VALUES  (%(pizza_id)s, topping);"     #need to fix
         return connectToMySQL(cls.my_db).query_db(query, data)
 
     @classmethod
