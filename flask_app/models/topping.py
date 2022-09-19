@@ -44,6 +44,7 @@ class Topping:
     @classmethod
     def destroy(cls,data):
         query = "DELETE FROM topping WHERE id = %(id)s;"
+        print('Destroy')
         return connectToMySQL(cls.my_db).query_db(query,data)
 
     @staticmethod   

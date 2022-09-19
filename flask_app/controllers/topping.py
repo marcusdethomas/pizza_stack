@@ -47,8 +47,8 @@ def show_all():
     return render_template('/all_toppings.html', user = User.get_by_id(data), topping = Topping.get_all())
 
 
-@app.route('/delete/<int:id>')
-def delete(id):
+@app.route('/delete_topping/<int:id>')
+def delete_topping(id):
     if 'user_id' not in session:
         return redirect('/logout')
     data = {

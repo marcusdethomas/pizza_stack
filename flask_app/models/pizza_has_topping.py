@@ -5,14 +5,11 @@ from flask import flash, session
 from flask_app.models.user import User
 from flask_app.models.pizza import Pizza
 
-class Topping:
+class Pizza_has_toppings:
     my_db = 'pizza_stack'
     def __init__(self, data):
         self.pizza_id = data['pizza_id']
         self.topping_id = data['topping_id']
-        self.created_at = data['created_at']
-        self.updated_at = data['updated_at']
-        self.user_id = data['user_id']
         self.owner = None
 
     @classmethod
@@ -23,7 +20,7 @@ class Topping:
 
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO pizza_has_topping (pizza_id, topping_id, user_id) VALUES  (%(pizza_id)s, (%(topping_id)s, %(user_id)s);"
+        query = "INSERT INTO pizza_has_topping (pizza_id, topping_id) VALUES  (%(pizza_id)s, (%(topping_id)s);"
         return connectToMySQL(cls.my_db).query_db(query, data)
 
     @classmethod

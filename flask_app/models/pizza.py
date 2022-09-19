@@ -23,9 +23,10 @@ class Pizza:
 
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO pizza (pizza_name, date, user_id) VALUES  (%(pizza_name)s, %(date)s, %(user_id)s);"
+        query = "INSERT INTO pizza (pizza_name, user_id) VALUES  (%(pizza_name)s, %(user_id)s);"
         return connectToMySQL(cls.my_db).query_db(query, data)
-
+        
+    #get all toppings from pizzas in database
     @classmethod
     def get_pizza_toppings(cls, data):
         query = "SELECT * FROM user \
@@ -57,7 +58,7 @@ class Pizza:
     @staticmethod   
     def validate_entry(data):
         is_valid = TRUE
-        if len(data['Pizza Name']) < 3:
+        if len(data['pizza_name']) < 3:
                 flash('Pizza name must be at least three characters or more.')
                 is_valid =  False
         return is_valid
