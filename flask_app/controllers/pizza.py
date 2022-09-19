@@ -27,7 +27,7 @@ def add_new_pizza():
     "pizza_id": pizza_id,
     "topping_id": topping_list
     }
-    Pizza_has_toppings.save(all_data, topping_list) 
+    Pizza_has_toppings.save(all_data, pizza_id, topping_list) 
     #print("Pizza has topping: " , all_data) # testing third table save
     return redirect('/dashboard')
 
@@ -52,5 +52,6 @@ def delete_pizza(id):
     data = {
         "id":id
     }
+    Pizza_has_toppings.destroy(data)
     Pizza.destroy(data)
     return redirect('/dashboard')

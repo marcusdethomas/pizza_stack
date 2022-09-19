@@ -19,12 +19,19 @@ class Pizza_has_toppings:
         return cls(results[0])
 
     @classmethod
-    def save(cls, data, topping_list):
-        #print("Full pizza: ",data)
-        print("Save toppings list: ", topping_list)
-        for topping in topping_list:
-            query = "INSERT INTO pizza_has_topping (pizza_id, topping_id) VALUES  (%(pizza_id)s, topping);"     #need to fix
-        return connectToMySQL(cls.my_db).query_db(query, data)
+    def save(cls, data, pizza_id, topping_list):
+        print("Save toppings list: ", topping_list) 
+        
+        for i in topping_list:
+            print("I: ",i)
+            data = {
+            "pizza_id": pizza_id,
+            "topping_id": i
+            }
+            query = "INSERT INTO pizza_has_topping (pizza_id, topping_id) VALUES  (%(pizza_id)s, %(topping_id)s);"    
+            results = connectToMySQL(cls.my_db).query_db(query,data)
+            print("Save toppings list: ", data) 
+        return 
 
     @classmethod
     def get_all(cls):
@@ -38,19 +45,10 @@ class Pizza_has_toppings:
     @classmethod
     def update(cls, data):
         print(data)
-        query = "UPDATE topping SET topping_name=%(topping_name)s, date=%(date)s, updated_at=NOW() WHERE id = %(id)s;"
+        query = "UPDATE pizza_has_topping SET topping_name=%(topping_name)s, date=%(date)s, updated_at=NOW() WHERE id = %(id)s;" #fix
         return connectToMySQL(cls.my_db).query_db(query,data)
     
     @classmethod
     def destroy(cls,data):
-        query = "DELETE FROM topping WHERE id = %(id)s;"
+        query = "DELETE FROM pizza_has_topping WHERE pizza_id = %(id)s;"
         return connectToMySQL(cls.my_db).query_db(query,data)
-
-    @staticmethod   
-    def validate_entry(data):
-        is_valid = TRUE
-        if len(data['topping_name']) < 3:
-                flash('Topping name must be at least three characters or more.')
-                is_valid =  False
-        return is_valid
-        
