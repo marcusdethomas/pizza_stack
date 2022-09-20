@@ -32,9 +32,16 @@ class User:
         'user': 1,
         'admin': 2
         }
-        if not self.role == ROLE['admin']:
+        if not self == ROLE['admin']:
             return False
-        self.role == ROLE['admin']
+        self == ROLE['admin']
+        return True
+
+    def is_admin_check(self, data):
+        if not data == 2:
+            print("Admin:" ,data)
+            return False
+        print("Admin:" ,data)
         return True
 
     @classmethod

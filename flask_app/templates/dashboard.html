@@ -14,9 +14,9 @@
             <div class="d-flex justify-content-between">
             <h2>Welcome, {{user.first_name}}</h2>
                 <div class="d-flex">
-                    <a href="/pizza">New Pizza</a>
+                    <a href="/pizza" >New Pizza</a>
                 </div>
-                {% if user.is_admin() %}
+                {% if user.is_admin_check(user.role) %}
                 <div class="d-flex">
                     <a href="/add">Add Topping</a>
                 </div>

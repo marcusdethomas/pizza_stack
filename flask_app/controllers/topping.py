@@ -8,6 +8,13 @@ from flask_app.models.topping import Topping
     #print(user_role.role)
 @app.route('/add')
 def add_topping():
+    role ={
+        'role': session['user_role']
+    }
+    if not User.is_admin(session['user_role']):
+        return redirect('/dashboard')
+    print(session['user_role'])
+    #User.is_admin_check(role)
     return render_template('/new_topping.html')
 
 @app.route('/new', methods = ['POST'])

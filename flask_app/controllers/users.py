@@ -40,6 +40,7 @@ def login():
         flash("Invalid Password","login")
         return redirect('/')
     session['user_id'] = user.id
+    session['user_role'] = user.role
     return redirect('/dashboard')
 
 @app.route('/dashboard')
@@ -48,6 +49,9 @@ def dashboard():
         return redirect('/logout')
     data = {
         'id': session['user_id']
+    }
+    role ={
+        'role': session['user_role']
     }
     return render_template('/dashboard.html', user = User.get_by_id(data),  pizzas = Pizza.get_all())
 

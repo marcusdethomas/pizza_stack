@@ -14,18 +14,15 @@
         <div class="row">
             <div class=" d-flex justify-content-end">
                 <div class="p-2 bd-highlight">
-                    {% if user.is_admin() %}
-                    <a href="/add" class="btn btn-primary">Add Topping</a>
+                    {% if user.is_admin_check(user.role) %}
+                    <a href="/add" ">Add Topping</a>
                     {% endif %}
-                    <a href="/dashboard" class="btn btn-primary">Dashboard</a>
-                    <a href="/logout" class="btn btn-primary">Log Out</a>
+                    <a href="/dashboard" ">Dashboard</a>
+                    <a href="/logout" ">Log Out</a>
                 </div>
             </div>
         </div>
-
-        <input type="string" name="user_role" value={{user.role}}>
-
-
+        <input type="hidden" name="user_role" value={{user.role}}>
         <div class="row justify-content-center">
             <div class="card col-8 mt-5" >
                 <h2>Available Toppings</h2>
@@ -42,4 +39,3 @@
     </form>
 </body>
 </html>
-
