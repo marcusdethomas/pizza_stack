@@ -7,6 +7,12 @@ import re
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 
+ROLE = {
+    'guest': 0,
+    'user': 1,
+    'admin': 2
+}
+
 class User:
     my_db='pizza_stack'
     def __init__(self, data):
@@ -19,6 +25,12 @@ class User:
         self.pizza_id = data['pizza_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+    
+    def is_admin(self):
+        return self.access == ROLE['admin']
+    
+    def allowed(self, access_level):
+        return self.access >= access_level
 
     @classmethod
     def create_login(cls, data):
@@ -49,7 +61,12 @@ class User:
         results = connectToMySQL(cls.my_db).query_db(query,data)
         return cls(results[0])
         
-
+    @classmethod
+    def get_role(cls,data):
+        query = "SELECT role FROM user WHERE id = %(id)s;"
+        results = connectToMySQL(cls.my_db).query_db(query,data)
+        return cls(results[0])
+        
     @classmethod
     def check_duplicate(cls, data):
         is_duplicate = True

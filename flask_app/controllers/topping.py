@@ -45,7 +45,7 @@ def edit_topping(id):
     user_data = {
         "id":session['user_id']
     }
-    return render_template('edit_entry.html', toppings = Topping.get_by_id(data), user = User.get_by_id(user_data))
+    return render_template('edit_topping.html', toppings = Topping.get_by_id(data), user = User.get_by_id(user_data))
 
 @app.route('/topping/update', methods =['POST'])
 def update_topping():
@@ -56,8 +56,8 @@ def update_topping():
             "id": request.form['id'],
             "topping_name":request.form['topping_name']
         }
-        Topping.update(edit)
-        return redirect('/show_all')
+        print("Temp: ", edit)
+        return redirect("/topping/edit/<int:id>")
     data = {
     "topping_name": request.form["topping_name"],
     "id": request.form['id']
@@ -72,9 +72,10 @@ def show_all():
     if 'user_id' not in session:
         return redirect('/logout')
     data = {
-        'id': session['user_id']
+        'id': session['user_id'],
     }
     toppings = Topping.get_all()
+    # role = request.form['role']  will not work because this is not a post route
     return render_template('/all_toppings.html', user = User.get_by_id(data), topping = Topping.get_all())
 
 

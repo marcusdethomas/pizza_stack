@@ -45,6 +45,45 @@ def pizzas(id):
     }
     return render_template('/show_pizzas.html', pizza = Pizza.get_by_id(data),owner = User.get_by_id(owner_data), pizzas = Pizza.get_pizza_toppings(data))
 
+@app.route('/pizza/edit/<int:id>')
+def edit_pizza(id):
+    if 'user_id' not in session:
+        redirect ('/logout')
+    data = {
+        'id':id,
+    }
+    user_data = {
+        "id":session['user_id']
+    }
+    return render_template('edit_pizza.html', user = User.get_by_id(user_data), toppings = Topping.get_all(), \
+        has_topping=Pizza_has_toppings.get_by_id(data), pie = Pizza.get_by_id(data))
+
+@app.route('/pizza/update', methods =['POST'])
+def update_pizza():
+    if 'user_id' not in session:
+        return redirect ('/logout')
+    if not Pizza.validate_entry(request.form):
+        edit = {
+            "id": request.form['id'],
+            "pizza_name":request.form['pizza_name']
+        }
+        Pizza.update(edit)
+        return redirect('/pizza/edit')
+
+
+    topping_list = request.form.getlist("topping_id")
+    pizza_data = {
+        'id':request.form["id"],
+    }
+
+    data = {
+    "topping_id": request.form["topping_id"],
+    "pizza_id": request.form['id']
+    }
+    pizza_id = (request.form['id'])
+    Pizza_has_toppings.update(data,pizza_id, topping_list)
+    return redirect('/dashboard')
+
 @app.route('/delete/<int:id>')
 def delete_pizza(id):
     if 'user_id' not in session:

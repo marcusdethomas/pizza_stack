@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from flask_app.config.mysqlconnection import MySQLConnection, connectToMySQL
 from flask_app.controllers import users
 from pickle import TRUE, FALSE
@@ -68,4 +69,11 @@ class Pizza:
                 flash('Pizza name must be at least three characters or more.')
                 is_valid =  False
         return is_valid
-        
+    
+    @staticmethod   
+    def validate_full_pizza(data):
+        is_valid = TRUE
+        if (data) == " ":
+                flash('Pizza must at least have one topping.')
+                is_valid =  False
+        return is_valid
