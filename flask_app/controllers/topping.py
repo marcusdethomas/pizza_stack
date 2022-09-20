@@ -4,6 +4,8 @@ from flask_app.models.pizza import Pizza
 from flask_app.models.user import User
 from flask_app.models.topping import Topping
 
+    #user_role = User.get_by_id(data)
+    #print(user_role.role)
 @app.route('/add')
 def add_topping():
     return render_template('/new_topping.html')
@@ -17,9 +19,9 @@ def add_new():
     data = {
     "topping_name": request.form["topping_name"],
     "user_id": session['user_id']
-    }
+    }   
     Topping.save(data)
-    return redirect('/dashboard')
+    return redirect('/show_all')
 
 @app.route('/topping/<int:id>')
 def show_topping(id):
@@ -75,7 +77,6 @@ def show_all():
         'id': session['user_id'],
     }
     toppings = Topping.get_all()
-    # role = request.form['role']  will not work because this is not a post route
     return render_template('/all_toppings.html', user = User.get_by_id(data), topping = Topping.get_all())
 
 

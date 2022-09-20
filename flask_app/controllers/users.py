@@ -22,8 +22,10 @@ def register():
         "first_name": request.form['first_name'],
         "last_name": request.form['last_name'],
         "email": request.form['email'],
-        "password": bcrypt.generate_password_hash(request.form['password'])
+        "password": bcrypt.generate_password_hash(request.form['password']),
+        "role": [request.form['role']]
     }
+    print("Data Role:", data)
     id = User.create_login(data) 
     session['user_id'] = id
     return redirect('/dashboard')

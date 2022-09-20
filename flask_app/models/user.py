@@ -27,14 +27,19 @@ class User:
         self.updated_at = data['updated_at']
     
     def is_admin(self):
-        return self.access == ROLE['admin']
-    
-    def allowed(self, access_level):
-        return self.access >= access_level
+        ROLE = {
+        'guest': 0,
+        'user': 1,
+        'admin': 2
+        }
+        if not self.role == ROLE['admin']:
+            return False
+        self.role == ROLE['admin']
+        return True
 
     @classmethod
     def create_login(cls, data):
-        query = 'INSERT INTO user (first_name, last_name, email, password) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s)'
+        query = 'INSERT INTO user (first_name, last_name, email, password, role) VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s, %(role)s)'
         results = MySQLConnection(cls.my_db).query_db(query, data)
         return results
         

@@ -16,9 +16,11 @@
                 <div class="d-flex">
                     <a href="/pizza">New Pizza</a>
                 </div>
+                {% if user.is_admin() %}
                 <div class="d-flex">
                     <a href="/add">Add Topping</a>
                 </div>
+                {% endif %}
                 <div class="d-flex">
                     <a href="/show_all">All Topping</a>
                 </div>
