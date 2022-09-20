@@ -28,7 +28,7 @@ class Topping:
 
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM topping join user on topping.user_id = user.id;"
+        query = "SELECT * FROM topping join user;"
         results =  connectToMySQL(cls.my_db).query_db(query)
         all_toppings = []
         for row in results:

@@ -69,10 +69,9 @@ def update_pizza():
             "id": request.form['id'],
             "pizza_name":request.form['pizza_name']
         }
-    if not Pizza.check_duplicate(request.form):
+    if not Pizza.check_duplicate_for_update(request.form):
         return redirect('/pizza')
-        Pizza.update(edit)
-        return redirect('/pizza/edit')
+    
     topping_list = request.form.getlist("topping_id")
     
     if (topping_list) == []:
@@ -80,12 +79,14 @@ def update_pizza():
 
     pizza_data = {
         'id':request.form["id"],
+        'pizza_name': request.form["pizza_name"]
     }
     data = {
     "topping_id": request.form["topping_id"],
     "pizza_id": request.form['id']
     }
     pizza_id = (request.form['id'])
+    Pizza.update(pizza_data)
     Pizza_has_toppings.update(data,pizza_id, topping_list)
     return redirect('/dashboard')
 

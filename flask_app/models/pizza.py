@@ -43,7 +43,7 @@ class Pizza:
         
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM pizza join user on pizza.user_id = user.id;"
+        query = "SELECT * FROM pizza join user;"
         results =  connectToMySQL(cls.my_db).query_db(query)
         all_pizzas = []
         for row in results:
@@ -53,7 +53,7 @@ class Pizza:
     @classmethod
     def update(cls, data):
         print(data)
-        query = "UPDATE pizza SET pizza_name=%(pizza_name)s, date=%(date)s, updated_at=NOW() WHERE id = %(id)s;"
+        query = "UPDATE pizza SET pizza_name=%(pizza_name)s, updated_at=NOW() WHERE id = %(id)s;"
         return connectToMySQL(cls.my_db).query_db(query,data)
     
     @classmethod
@@ -85,4 +85,14 @@ class Pizza:
         if len(results) >= 1:
                 flash('Pizza already exists.')
                 is_duplicate = False
+        return is_duplicate
+
+    @classmethod
+    def check_duplicate_for_update(cls, data):
+        is_duplicate = True
+        query = 'SELECT * FROM pizza where pizza.id != (%(id)s) and pizza_name = (%(pizza_name)s)'
+        results = MySQLConnection(cls.my_db).query_db(query, data)
+        if (results) == False or len(results) >= 1 :
+            flash('Pizza already exists.')
+            is_duplicate = False
         return is_duplicate

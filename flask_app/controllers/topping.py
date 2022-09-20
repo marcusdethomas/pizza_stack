@@ -88,6 +88,7 @@ def show_all():
         'id': session['user_id'],
     }
     toppings = Topping.get_all()
+    print(toppings)
     return render_template('/all_toppings.html', user = User.get_by_id(data), topping = Topping.get_all())
 
 

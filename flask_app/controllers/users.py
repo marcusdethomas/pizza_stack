@@ -28,6 +28,7 @@ def register():
     print("Data Role:", data)
     id = User.create_login(data) 
     session['user_id'] = id
+    session['user_role'] = request.form['role']
     return redirect('/dashboard')
     
 @app.route('/login', methods=['POST'])
@@ -53,6 +54,8 @@ def dashboard():
     role ={
         'role': session['user_role']
     }
+    user = User.get_by_id(data)
+    session['user_role'] = user.role
     return render_template('/dashboard.html', user = User.get_by_id(data),  pizzas = Pizza.get_all())
 
 @app.route('/new')
