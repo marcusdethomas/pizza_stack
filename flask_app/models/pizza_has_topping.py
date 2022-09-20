@@ -59,7 +59,6 @@ class Pizza_has_toppings:
             "topping_id": i
             }
             query = "INSERT INTO pizza_has_topping (pizza_id, topping_id) VALUES  (%(pizza_id)s, %(topping_id)s);" 
-            #query = "UPDATE pizza_has_topping SET pizza_id=%(pizza_id)s,topping_id=%(topping_id)s updated_at=NOW() WHERE pizza_id = %(pizza_id)s;" 
             results = connectToMySQL(cls.my_db).query_db(query,data)
         return 
     

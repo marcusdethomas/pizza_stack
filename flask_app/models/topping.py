@@ -54,3 +54,12 @@ class Topping:
                 is_valid =  False
         return is_valid
         
+    @classmethod
+    def check_duplicate(cls, data):
+        is_duplicate = True
+        query = 'SELECT * FROM  topping where topping_name = (%(topping_name)s)'
+        results = MySQLConnection(cls.my_db).query_db(query, data)
+        if len(results) >= 1:
+                flash('Topping already exists.')
+                is_duplicate = False
+        return is_duplicate

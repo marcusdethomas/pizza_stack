@@ -15,6 +15,8 @@ def add_new_pizza():
         return redirect ('/logout')
     if not Pizza.validate_entry(request.form):
         return redirect('/pizza')
+    if not Pizza.check_duplicate(request.form):
+        return redirect('/pizza')
     data = {
     "pizza_name": request.form["pizza_name"],
     "user_id": session['user_id']
@@ -67,15 +69,18 @@ def update_pizza():
             "id": request.form['id'],
             "pizza_name":request.form['pizza_name']
         }
+    if not Pizza.check_duplicate(request.form):
+        return redirect('/pizza')
         Pizza.update(edit)
         return redirect('/pizza/edit')
-
-
     topping_list = request.form.getlist("topping_id")
+    
+    if (topping_list) == []:
+        return redirect ('/dashboard')
+
     pizza_data = {
         'id':request.form["id"],
     }
-
     data = {
     "topping_id": request.form["topping_id"],
     "pizza_id": request.form['id']

@@ -16,6 +16,8 @@ def add_new():
         return redirect ('/logout')
     if not Topping.validate_entry(request.form):
         return redirect('/add')
+    if not Topping.check_duplicate(request.form):
+        return redirect('/add')
     data = {
     "topping_name": request.form["topping_name"],
     "user_id": session['user_id']
@@ -60,6 +62,8 @@ def update_topping():
         }
         print("Temp: ", edit)
         return redirect("/topping/edit/<int:id>")
+    if not Topping.check_duplicate(request.form):
+        return redirect('/add')
     data = {
     "topping_name": request.form["topping_name"],
     "id": request.form['id']
