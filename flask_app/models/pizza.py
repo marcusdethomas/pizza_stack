@@ -36,8 +36,7 @@ class Pizza:
     #get all toppings from pizzas in database
     @classmethod
     def get_pizza_toppings(cls, data):
-        query = "SELECT * FROM user \
-                inner join pizza inner join pizza_has_topping on pizza.id = pizza_has_topping.pizza_id \
+        query = "SELECT * FROM pizza inner join pizza_has_topping on pizza.id = pizza_has_topping.pizza_id \
                 inner join topping on topping.id = topping_id \
                 where %(id)s = pizza.id"
         return connectToMySQL(cls.my_db).query_db(query, data)
