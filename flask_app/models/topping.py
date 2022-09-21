@@ -28,7 +28,7 @@ class Topping:
 
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM topping join user;"
+        query = "SELECT * FROM topping;"
         results =  connectToMySQL(cls.my_db).query_db(query)
         all_toppings = []
         for row in results:
@@ -63,3 +63,14 @@ class Topping:
                 flash('Topping already exists.')
                 is_duplicate = False
         return is_duplicate
+
+    @classmethod
+    def check_if_deletable(cls, data):
+        is_deleteable = True
+        query = 'SELECT * FROM  pizza_has_topping join topping where (%(id)s = topping_id )'
+        results = MySQLConnection(cls.my_db).query_db(query, data)
+        print("Results: ", data)
+        if len(results) >= 1:
+                flash('Cannot delete topping that is currently on a Pizza')
+                is_deleteable = False
+        return is_deleteable

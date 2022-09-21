@@ -43,7 +43,7 @@ class Pizza:
         
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM pizza join user;"
+        query = "SELECT * FROM pizza;"
         results =  connectToMySQL(cls.my_db).query_db(query)
         all_pizzas = []
         for row in results:

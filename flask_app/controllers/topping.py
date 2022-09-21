@@ -99,5 +99,7 @@ def delete_topping(id):
     data = {
         "id":id
     }
+    if not Topping.check_if_deletable(data):
+        return redirect ('/show_all')
     Topping.destroy(data)
-    return redirect('/dashboard')
+    return redirect('/show_all')
