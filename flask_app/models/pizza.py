@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from flask_app.config.mysqlconnection import MySQLConnection, connectToMySQL
 from flask_app.controllers import users
 from pickle import TRUE, FALSE
