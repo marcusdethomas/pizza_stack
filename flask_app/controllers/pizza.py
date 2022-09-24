@@ -20,7 +20,10 @@ def add_new_pizza():
     data = {
     "pizza_name": request.form["pizza_name"],
     "user_id": session['user_id']
-    }
+    }  
+    if request.form.getlist("topping_id") == []:
+        flash('Please create ingredients before trying to create pizza.')
+        return redirect('/pizza')
     Pizza.save(data)
     new_pizza = Pizza.get_by_name(data)
     pizza_id = new_pizza.id
