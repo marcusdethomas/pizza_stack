@@ -8,55 +8,62 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <title>Edit Topping</title>
 </head>
-<body>
-<form action="/topping/update", method="POST">
-    <div class="container">
-        <div class="d-flex flex-column bd-highlight mb-3">
-            <div class="p-2 bd-highlight">
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex">
-                        <a href="/dashboard"" >Dashboard</a>
+    <div
+    class="bg-image"
+    style="
+    background-image: url('https://media1.popsugar-assets.com/files/thumbor/oYivacUQxsjybVn80tgpJo2bahw/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2015/06/10/017/n/1922398/bc378e5c_shutterstock_93720934.jpg');
+    height: 100vh;
+    ">
+        <body>
+        <form action="/topping/update", method="POST">
+            <div class="container">
+                <div class="d-flex flex-column bd-highlight mb-3">
+                    <div class="p-2 bd-highlight">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">
+                                <a href="/dashboard"" >Dashboard</a>
+                                </div>
+                            <div class="d-flex">
+                                <a href="/pizza" >New Pizza</a>
+                            </div>
+                            {% if user.is_admin_check(user.role) %}
+                            <div class="d-flex">
+                                <a href="/add">Add Topping</a>
+                            </div>
+                            {% endif %}
+                            <div class="d-flex">
+                                <a href="/show_all">All Topping</a>
+                            </div>
+                                <a href="/logout">Logout</a>
+                            </div>
+                    </div>
+                </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="card col-8 mt-5" >
+                        <div class="card-body">
+                            <p class="card-title">
+                                <input type="hidden" name="id" value={{toppings.id}}>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" value="{{toppings.topping_name}}" aria-label="Topping Name" name="topping_name">
+                                </div>
+                            <div class="d-flex justify-content-center p-2 bd-highlight">
+                                <input type ="submit" value="Update" name="Edit entry"class="btn btn-primary">
+                            </div>
+                            {% with messages = get_flashed_messages() %}     
+                            {% if messages %}                            
+                                {% for message in messages %}            
+                                <p>{{message}}</p>                   
+                                {% endfor %}
+                            {% endif %}
+                            {% endwith %}
                         </div>
-                    <div class="d-flex">
-                        <a href="/pizza" >New Pizza</a>
                     </div>
-                    {% if user.is_admin_check(user.role) %}
-                    <div class="d-flex">
-                        <a href="/add">Add Topping</a>
-                    </div>
-                    {% endif %}
-                    <div class="d-flex">
-                        <a href="/show_all">All Topping</a>
-                    </div>
-                        <a href="logout">Logout</a>
-                    </div>
-            </div>
-        </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="card col-8 mt-5" >
-                <div class="card-body">
-                    <p class="card-title">
-                        <input type="hidden" name="id" value={{toppings.id}}>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" value="{{toppings.topping_name}}" aria-label="Topping Name" name="topping_name">
-                        </div>
-                    <div class="d-flex justify-content-center p-2 bd-highlight">
-                        <input type ="submit" value="Update" name="Edit entry"class="btn btn-primary">
-                    </div>
-                    {% with messages = get_flashed_messages() %}     
-                    {% if messages %}                            
-                        {% for message in messages %}            
-                        <p>{{message}}</p>                   
-                        {% endfor %}
-                    {% endif %}
-                    {% endwith %}
                 </div>
             </div>
-        </div>
+        </form>
+        </body>
     </div>
-</form>
-</body>
 </html>
 </html>
     
